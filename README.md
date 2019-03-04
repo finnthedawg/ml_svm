@@ -1,10 +1,10 @@
-# ml_svm
+# Support Vector Machines 
 
-**Experiments using SVM (support vector machines) with linear, Gaussian and other kernels.**
+**-Experiments using SVMs with linear, Gaussian and other kernels.**
 
-**Parameter tuning using train/test data split and k-folds.**
+**-Parameter tuning using train/test data split and k-folds.**
 
-**Analysis of the Sklearn breast cancer data set to predict cancer using SVMs.**
+**-Analysis of the Sklearn breast cancer data set to predict cancer using SVMs.**
 
 To run the project:
 ```
@@ -14,7 +14,7 @@ jupyter notebook SupportVectorMachines.ipynb
 ```
 Documentation is provided in code comments
 
-## Dataset 1 - linear
+## Dataset 1 - Linear
 
 A visualization of the data provided:
 
@@ -36,7 +36,7 @@ A visualization of the data provided:
   <img width="350"  src="./figures/visual2.png">
 </p>
 
-As the data did not appear linearly separable I used a Gaussian kernel <img src="./figures/gaussian.png"> with the below parameters which were found experimentally.
+Because the data does not appear linearly separable I used a Gaussian kernel <img src="./figures/gaussian.png">. This model was trained using the following parameters which were found experimentally.
 
 ```
 kernel = 'rbf'
@@ -48,7 +48,7 @@ C = 50
   <img width="350"  src="./figures/2svmrbf.png">
 </p>
 
-This classified the data set using 170 support vectors and obtained an average precision and recall score of 0.96 respectively. The confusion matrix for this model is:
+This classified the data set using 170 support vectors which obtained an average precision and recall score of 0.96 respectively. The confusion matrix for this model is:
 And the following confusion matrix:
 ```
           precision    recall  f1-score   support
@@ -67,7 +67,7 @@ This data set was pre-partitioned into two sets. One training set and one test s
   <img width="350"  src="./figures/3visual2.png">
 </p>
 
-To find the correct parameters, we searched over the follow parameter space on the training data set. To do this, we used the Sklearn GridSearchCV which uses a k-folds splitting of the training data set.
+To find the correct parameters, I searched over the follow parameter space on the training data set. To do this, I called the Sklearn GridSearchCV() which uses a k-folds splitting of the training data set in order to train on the cross product of the parameter space.
 
 ```
 kernel : 'rbf'
@@ -76,7 +76,7 @@ gamma : [0.1,1,5,10,20]
 cv : 5
 ```
 
-We obtained the following parameters and results.
+I obtained the following parameters and results.
 
 ```
 Parameters chosen after 5 folds:
@@ -133,7 +133,7 @@ Finally, I searched for optimal parameters using k-folds over the following para
 'C' : [ 1, 10, 100, 1000]
 'cv' : 10
 ```
-We obtained the following parameters and results. Interestingly, the model performed better on the test data than on the training data set.
+I obtained the following parameters and results. Interestingly, the model performed better on the test data than on the training data set.
 
 ```
 Parameters chosen after 10 folds:
@@ -150,7 +150,7 @@ No cancer      1.00      0.98      0.99        42
 Cancer         0.99      1.00      0.99        72
 avg / total    0.99      0.99      0.99       114
 ```
-On average, our model classified 99% of the tumors.
+On average, this model classified 99% of the tumors.
 
 **Extra note:**
 When I searched for optimal parameters under a linear model, I also obtained a very accurate result. This was puzzling because a data set with as many features as 30 would suggest a more complex Gaussian kernel would be needed to capture the detail of the data.
